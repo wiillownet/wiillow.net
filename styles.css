@@ -61,7 +61,11 @@ html, body {
   position: relative;
   flex: 0 0 auto;
   height: var(--grad-h-top);
-  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+  /* Fade from a slightly lit edge at the white screen line up to solid black
+     within 130px, then stay solid black out to the top edge (blends with the
+     status bar / bezel). Keeps the gradient consistent no matter how tall the
+     band grows on mobile. */
+  background: linear-gradient(0deg, #1a1a1a 0, #000 130px);
   display: flex;
   align-items: flex-end;
   padding-left: 32px;
@@ -117,7 +121,9 @@ html, body {
 .bottom-gradient {
   flex: 0 0 auto;
   height: var(--grad-h-bot);
-  background: linear-gradient(0deg, #1a1a1a 0%, #000 100%);
+  /* Mirror of the top: lit at the white screen line, solid black to the
+     bottom edge within 130px. */
+  background: linear-gradient(180deg, #1a1a1a 0, #000 130px);
   display: flex;
   align-items: center;
   justify-content: flex-end;
