@@ -290,6 +290,11 @@ html, body {
     --nav-pill-h: 40px;
     --nav-pill-w: 50px;
     --nav-pill-icon: 24px;
+
+    /* Less cramped on phones: shorter buttons + more gap between them. */
+    --btn-h: 64px;
+    --btn-font: 30px;
+    --btn-gap: 24px;
   }
 
   .top-gradient {
@@ -308,15 +313,18 @@ html, body {
      spare height goes to the top/bottom gradient bands, so they read as proper
      dark frames instead of thin strips. Buttons stay near vertical center
      (bottom band is slightly larger to seat the GitHub pill). */
+  /* Give the striped panel room to grow so the button group sits centered
+     with breathing space above/below, while the gradient bands still frame
+     the top and bottom. */
   .top-gradient    { flex: 1 1 auto; }
-  .striped-bg      { flex: 0 1 auto; }
-  .bottom-gradient { flex: 1.15 1 auto; }
+  .striped-bg      { flex: 2.5 1 auto; }
+  .bottom-gradient { flex: 1.2 1 auto; }
 }
 
-/* Tiny phones (e.g., iPhone SE): shave the buttons a touch. */
+/* Tiny phones (e.g., iPhone SE): shave the buttons a touch more. */
 @media (max-width: 360px) {
   :root {
-    --btn-h: 68px;
-    --btn-font: 28px;
+    --btn-h: 58px;
+    --btn-font: 26px;
   }
 }
