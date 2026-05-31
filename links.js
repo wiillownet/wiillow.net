@@ -4,6 +4,8 @@ const LINKS = [
   { label: 'GitHub',    url: 'https://github.com/wiillownet' },
   { label: 'Bluesky',   url: 'https://bsky.app/profile/wiillow.net' },
   { label: 'Instagram', url: 'https://www.instagram.com/wiillownet/' },
+  { label: 'YouTube',   url: 'https://www.youtube.com/@wiillownet' },
+  { label: 'Twitter',   url: 'https://x.com/wiillownet' },
 ];
 
 // Small pill buttons that sit in the bottom gradient (Wii-style nav).
