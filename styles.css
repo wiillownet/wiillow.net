@@ -1,0 +1,299 @@
+:root {
+  --ink: #313031;
+  --border-gray: #8C8A8A;
+  --wii-blue: #31BEEF;
+  --stripe-dark: #181C18;
+  --hover-overlay: rgba(0, 0, 255, 0.25);
+  --pill-gray: #848284;
+
+  /* Linktree model: fixed pixel sizes that DON'T scale with the viewport.
+     The only responsive behavior is the column capping at --stack-max and
+     centering (see .wii-stack). Reference: Linktree column 580px, button
+     min-height 64px, radius 16px, gap 14px — nudged up here for the chunkier
+     Wii look. Gloss math in .wii-btn__* stays relative to --btn-h. */
+  --stack-max: 580px;
+
+  --btn-h: 76px;
+  --btn-font: 34px;
+  --btn-radius: 18px;
+  --btn-border: 4px;
+  --btn-gap: 14px;
+
+  --tab-h: 50px;
+  --tab-font: 34px;
+
+  --grad-h-top: 88px;
+  --grad-h-bot: 104px;
+
+  --nav-pill-h: 48px;
+  --nav-pill-w: 60px;
+  --nav-pill-gap: 12px;
+  --nav-pill-icon: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 400;
+  /* Wii-menu "Rodin" lookalike treatment: IBM Plex Sans Regular tracked in -5%. */
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+/* ---------- Top gradient + tab ---------- */
+
+.top-gradient {
+  position: relative;
+  flex: 0 0 auto;
+  height: var(--grad-h-top);
+  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+  display: flex;
+  align-items: flex-end;
+  padding-left: 32px;
+}
+
+.top-tab {
+  background: #FFFFFF;
+  border-bottom: 2px solid var(--border-gray);
+  border-radius: 4px 20px 0 0;
+  height: var(--tab-h);
+  padding: 0 20px 0 10px;
+  display: flex;
+  align-items: center;
+  /* Tab bottom sits flush with the screen's white top edge (border-top on
+     .striped-bg), so the gray bottom border reads just above the white line. */
+}
+
+.top-tab__title {
+  font-size: var(--tab-font);
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+/* ---------- Striped middle ---------- */
+
+.striped-bg {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 32px;
+  padding-inline: 20px;
+  background-image: url('assets/stripe-pattern.svg');
+  background-repeat: repeat;
+  background-size: 40px auto;
+  border-top: 3px solid #FFFFFF;
+  border-bottom: 3px solid #FFFFFF;
+}
+
+/* Centered button column — Linktree-style: fill the available width up to a
+   fixed cap, then center. Side gutters come from .striped-bg's padding-inline. */
+.wii-stack {
+  width: 100%;
+  max-width: var(--stack-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--btn-gap);
+}
+
+/* ---------- Bottom gradient + nav pills ---------- */
+
+.bottom-gradient {
+  flex: 0 0 auto;
+  height: var(--grad-h-bot);
+  background: linear-gradient(0deg, #1a1a1a 0%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 4px 32px;
+}
+
+.bottom-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-pill-gap);
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nav-pill-w);
+  height: var(--nav-pill-h);
+  border-radius: calc(8 / 32 * var(--nav-pill-h));
+  text-decoration: none;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-pill--light {
+  background: #FFFFFF;
+}
+
+.nav-pill--dark {
+  background: var(--pill-gray);
+}
+
+.nav-pill__icon {
+  width: var(--nav-pill-icon);
+  height: var(--nav-pill-icon);
+  display: block;
+}
+
+.nav-pill:hover {
+  background: #FFFFFF;
+}
+
+
+/* ---------- Wii buttons ---------- */
+
+/* Maps to Figma layers:
+   .wii-btn                = "Button Outer White Border" + "Button White Background" (base white→gray gradient)
+   .wii-btn__gloss-top     = top strip of "Button Background Mask with Padding" (with bottom-right curve, r=12/54)
+   .wii-btn__gloss-tongue  = bottom-left fillet of "Button Background Mask with Padding" (r=20/54)
+   .wii-btn__inner-border  = "Button Inner Blue Border"
+   .wii-btn__label         = "Button Tesk Frame" > "Button Text"
+   .wii-btn__highlight     = "Button Blue Highlight" (hover state)
+   All gloss dimensions are calc(N/54 * var(--btn-h)) so curves stay circular at any button width. */
+.wii-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--btn-h);
+  border-radius: var(--btn-radius);
+  border: var(--btn-border) solid #FFFFFF;
+  text-decoration: none;
+  color: var(--ink);
+  overflow: hidden;
+  cursor: pointer;
+  background: linear-gradient(0deg, #FFFFFF 0%, #FFFFFF 25%, #808080 100%);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wii-btn__gloss-top {
+  position: absolute;
+  top: 0;
+  left: var(--btn-border);
+  right: var(--btn-border);
+  height: calc(22 / 54 * var(--btn-h));
+  background: #F7F3F7;
+  border-bottom-right-radius: calc(12 / 54 * var(--btn-h));
+  pointer-events: none;
+}
+
+.wii-btn__gloss-tongue {
+  position: absolute;
+  left: var(--btn-border);
+  top: calc(22 / 54 * var(--btn-h));
+  width: calc(20 / 54 * var(--btn-h));
+  height: calc(20 / 54 * var(--btn-h));
+  background: radial-gradient(
+    circle at 100% 100%,
+    transparent 70.71%,
+    #F7F7F7 70.71%
+  );
+  pointer-events: none;
+}
+
+.wii-btn__inner-border {
+  position: absolute;
+  inset: 0;
+  border: var(--btn-border) solid var(--wii-blue);
+  border-radius: calc(var(--btn-radius) - var(--btn-border));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wii-btn__label {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+  font-size: var(--btn-font);
+  line-height: 1;
+  color: var(--ink);
+  text-align: center;
+}
+
+.wii-btn__highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--btn-radius) - var(--btn-border));
+  background: var(--hover-overlay);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.wii-btn:hover .wii-btn__highlight,
+.wii-btn:focus-visible .wii-btn__highlight {
+  opacity: 1;
+}
+
+.wii-btn:focus-visible {
+  outline: none;
+}
+
+/* ---------- Responsive ---------- */
+/* Sizes are fixed (Linktree-style), so we need very little here. The column
+   already caps at --stack-max and centers; these only adjust frame chrome and
+   page gutters at the edges of the size range. */
+
+/* Roomier gutters once there's space (mirrors Linktree's 14px → 28px bump). */
+@media (min-width: 576px) {
+  .striped-bg {
+    padding-inline: 28px;
+  }
+}
+
+/* Phones: trim the frame chrome and gutters so the column gets more room. */
+@media (max-width: 480px) {
+  :root {
+    --grad-h-top: 72px;
+    --grad-h-bot: 88px;
+    --tab-h: 46px;
+    --tab-font: 30px;
+    --nav-pill-h: 40px;
+    --nav-pill-w: 50px;
+    --nav-pill-icon: 24px;
+  }
+
+  .top-gradient {
+    padding-left: 16px;
+  }
+
+  .striped-bg {
+    padding-inline: 16px;
+  }
+
+  .bottom-gradient {
+    padding: 4px 16px;
+  }
+}
+
+/* Tiny phones (e.g., iPhone SE): shave the buttons a touch. */
+@media (max-width: 360px) {
+  :root {
+    --btn-h: 68px;
+    --btn-font: 28px;
+  }
+}

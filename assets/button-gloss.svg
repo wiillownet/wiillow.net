@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 394 54" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="gloss" x1="197" y1="0" x2="197" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0.38" stop-color="#F7F3F7"/>
+      <stop offset="0.39" stop-color="#F7F7F7"/>
+      <stop offset="0.515" stop-color="#F7F7F7"/>
+      <stop offset="0.52" stop-color="#FFFBFF"/>
+    </linearGradient>
+    <mask id="gloss-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="394" height="54">
+      <path d="M3 0H391V54H3V0Z" fill="white"/>
+      <path d="M3 42C3 30.9543 11.9543 22 23 22H391V54H3V42Z" fill="black"/>
+      <path d="M197 0H391V22H197V0Z" fill="black"/>
+      <path d="M3 0H391V10C391 16.6274 385.627 22 379 22H3V0Z" fill="white"/>
+    </mask>
+  </defs>
+  <rect width="394" height="54" fill="url(#gloss)" mask="url(#gloss-mask)"/>
+</svg>
