@@ -14,6 +14,13 @@ const BOTTOM_NAV = [
   { url: 'https://github.com/wiillownet/wiillow.net', icon: 'assets/github-mark.svg', label: 'View source on GitHub', variant: 'dark' },
 ];
 
+// Fire a GoatCounter event so each link shows up as its own count.
+function trackClick(label) {
+  if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: 'click-' + label, title: label + ' link', event: true });
+  }
+}
+
 (function renderMainButtons() {
   const container = document.getElementById('buttons');
   if (!container) return;
@@ -33,6 +40,7 @@ const BOTTOM_NAV = [
       <span class="wii-btn__label">${label}</span>
       <span class="wii-btn__highlight"></span>
     `;
+    a.addEventListener('click', () => trackClick(label));
     container.appendChild(a);
   }
 })();
@@ -51,6 +59,7 @@ const BOTTOM_NAV = [
       a.rel = 'noopener noreferrer';
     }
     a.innerHTML = `<img class="nav-pill__icon" src="${icon}" alt="" aria-hidden="true" />`;
+    a.addEventListener('click', () => trackClick(label));
     container.appendChild(a);
   }
 })();
