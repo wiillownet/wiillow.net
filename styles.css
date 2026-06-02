@@ -6,11 +6,8 @@
   --hover-overlay: rgba(0, 0, 255, 0.25);
   --pill-gray: #848284;
 
-  /* Linktree model: fixed pixel sizes that DON'T scale with the viewport.
-     The only responsive behavior is the column capping at --stack-max and
-     centering (see .wii-stack). Reference: Linktree column 580px, button
-     min-height 64px, radius 16px, gap 14px — nudged up here for the chunkier
-     Wii look. Gloss math in .wii-btn__* stays relative to --btn-h. */
+  /* Fixed pixel sizes; the column just caps at --stack-max and centers.
+     Gloss math in .wii-btn__* is relative to --btn-h. */
   --stack-max: 580px;
 
   --btn-h: 76px;
@@ -61,10 +58,7 @@ html, body {
   position: relative;
   flex: 0 0 auto;
   height: var(--grad-h-top);
-  /* Fade from a slightly lit edge at the white screen line up to solid black
-     within 130px, then stay solid black out to the top edge (blends with the
-     status bar / bezel). Keeps the gradient consistent no matter how tall the
-     band grows on mobile. */
+  /* Lit at the white line, solid black past 130px regardless of band height. */
   background: linear-gradient(0deg, #1a1a1a 0, #000 130px);
   display: flex;
   align-items: flex-end;
@@ -79,8 +73,7 @@ html, body {
   padding: 0 20px 0 10px;
   display: flex;
   align-items: center;
-  /* Tab bottom sits flush with the screen's white top edge (border-top on
-     .striped-bg), so the gray bottom border reads just above the white line. */
+  /* Sits flush with the white screen line so the gray border reads just above it. */
 }
 
 .top-tab__title {
@@ -105,8 +98,8 @@ html, body {
   border-bottom: 3px solid #FFFFFF;
 }
 
-/* Centered button column — Linktree-style: fill the available width up to a
-   fixed cap, then center. Side gutters come from .striped-bg's padding-inline. */
+/* Fills the width up to a fixed cap, then centers. Side gutters come from
+   .striped-bg's padding-inline. */
 .wii-stack {
   width: 100%;
   max-width: var(--stack-max);
@@ -121,8 +114,7 @@ html, body {
 .bottom-gradient {
   flex: 0 0 auto;
   height: var(--grad-h-bot);
-  /* Mirror of the top: lit at the white screen line, solid black to the
-     bottom edge within 130px. */
+  /* Mirror of the top gradient. */
   background: linear-gradient(180deg, #1a1a1a 0, #000 130px);
   display: flex;
   align-items: center;
@@ -169,14 +161,8 @@ html, body {
 
 /* ---------- Wii buttons ---------- */
 
-/* Maps to Figma layers:
-   .wii-btn                = "Button Outer White Border" + "Button White Background" (base white→gray gradient)
-   .wii-btn__gloss-top     = top strip of "Button Background Mask with Padding" (with bottom-right curve, r=12/54)
-   .wii-btn__gloss-tongue  = bottom-left fillet of "Button Background Mask with Padding" (r=20/54)
-   .wii-btn__inner-border  = "Button Inner Blue Border"
-   .wii-btn__label         = "Button Tesk Frame" > "Button Text"
-   .wii-btn__highlight     = "Button Blue Highlight" (hover state)
-   All gloss dimensions are calc(N/54 * var(--btn-h)) so curves stay circular at any button width. */
+/* Gloss dimensions are calc(N/54 * var(--btn-h)) so the curves stay circular
+   at any button width. */
 .wii-btn {
   position: relative;
   display: block;
@@ -250,15 +236,14 @@ html, body {
   z-index: 4;
 }
 
-/* Only true hover-capable pointers (desktop) get the persistent hover glow,
-   so touch devices don't get a "stuck" highlight after returning from a link. */
+/* Hover glow only on real hover pointers, so touch doesn't leave it stuck. */
 @media (hover: hover) {
   .wii-btn:hover .wii-btn__highlight {
     opacity: 1;
   }
 }
 
-/* Keyboard focus + a momentary press flash (works on touch, clears on release). */
+/* Keyboard focus + a press flash that clears on release. */
 .wii-btn:focus-visible .wii-btn__highlight,
 .wii-btn:active .wii-btn__highlight {
   opacity: 1;
@@ -269,18 +254,15 @@ html, body {
 }
 
 /* ---------- Responsive ---------- */
-/* Sizes are fixed (Linktree-style), so we need very little here. The column
-   already caps at --stack-max and centers; these only adjust frame chrome and
-   page gutters at the edges of the size range. */
 
-/* Roomier gutters once there's space (mirrors Linktree's 14px → 28px bump). */
+/* Roomier gutters once there's space. */
 @media (min-width: 576px) {
   .striped-bg {
     padding-inline: 28px;
   }
 }
 
-/* Phones: trim the frame chrome and gutters so the column gets more room. */
+/* Phones: trim the chrome and gutters so the column gets more room. */
 @media (max-width: 480px) {
   :root {
     --grad-h-top: 72px;
@@ -291,7 +273,7 @@ html, body {
     --nav-pill-w: 50px;
     --nav-pill-icon: 24px;
 
-    /* Less cramped on phones: shorter buttons + more gap between them. */
+    /* Shorter buttons + more gap so it's less cramped. */
     --btn-h: 64px;
     --btn-font: 30px;
     --btn-gap: 24px;
@@ -309,13 +291,8 @@ html, body {
     padding: 4px 16px;
   }
 
-  /* On tall phones, the striped middle just hugs the buttons and ALL the
-     spare height goes to the top/bottom gradient bands, so they read as proper
-     dark frames instead of thin strips. Buttons stay near vertical center
-     (bottom band is slightly larger to seat the GitHub pill). */
-  /* Give the striped panel room to grow so the button group sits centered
-     with breathing space above/below, while the gradient bands still frame
-     the top and bottom. */
+  /* Let the striped panel grow so the buttons sit centered with space above
+     and below, while the gradient bands still frame the top and bottom. */
   .top-gradient    { flex: 1 1 auto; }
   .striped-bg      { flex: 2.5 1 auto; }
   .bottom-gradient { flex: 1.2 1 auto; }

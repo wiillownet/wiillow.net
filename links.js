@@ -5,7 +5,7 @@ const LINKS = [
   { label: 'Bluesky',   url: 'https://bsky.app/profile/wiillow.net' },
   { label: 'Instagram', url: 'https://www.instagram.com/wiillownet/' },
   { label: 'YouTube',   url: 'https://www.youtube.com/@wiillownet' },
-  // { label: 'Twitter',   url: 'https://x.com/wiillownet' }, // temporarily hidden — not using yet
+  // { label: 'Twitter',   url: 'https://x.com/wiillownet' }, // hidden for now
 ];
 
 // Small pill buttons that sit in the bottom gradient (Wii-style nav).
